@@ -35,7 +35,7 @@ This is the **Admin Panel (Frontend)** built with **Vue 3**, **Vite**, **Pinia**
 
 ```bash
 # Clone repository
-git clone https://github.com/habeebolamide/inbound.git
+git clone https://github.com/habeebolamide/inboundclient.git
 cd inbound-admin-panel
 
 # Install dependencies

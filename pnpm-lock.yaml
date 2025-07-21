@@ -21,6 +21,9 @@ importers:
       '@stylistic/stylelint-config':
         specifier: ^1.0.1
         version: 1.0.1(stylelint@16.8.0(typescript@5.7.2))
+      '@vue-leaflet/vue-leaflet':
+        specifier: ^0.10.1
+        version: 0.10.1(leaflet@1.9.4)(typescript@5.7.2)
       '@vueuse/core':
         specifier: ^10.11.1
         version: 10.11.1(vue@3.5.13(typescript@5.7.2))
@@ -30,6 +33,12 @@ importers:
       apexcharts:
         specifier: 3.49.2
         version: 3.49.2
+      leaflet:
+        specifier: ^1.9.4
+        version: 1.9.4
+      leaflet-geosearch:
+        specifier: ^4.2.0
+        version: 4.2.0
       pinia:
         specifier: ^2.3.0
         version: 2.3.0(typescript@5.7.2)(vue@3.5.13(typescript@5.7.2))
@@ -669,6 +678,9 @@ packages:
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
 
+  '@googlemaps/js-api-loader@1.16.10':
+    resolution: {integrity: sha512-c2erv2k7P2ilYzMmtYcMgAR21AULosQuUHJbStnrvRk2dG93k5cqptDrh9A8p+ZNlyhiqEOgHW7N9PAizdUM7Q==}
+
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
     engines: {node: '>=10.10.0'}
@@ -1018,6 +1030,15 @@ packages:
     peerDependencies:
       vite: ^5.0.0 || ^6.0.0
       vue: ^3.2.25
+
+  '@vue-leaflet/vue-leaflet@0.10.1':
+    resolution: {integrity: sha512-RNEDk8TbnwrJl8ujdbKgZRFygLCxd0aBcWLQ05q/pGv4+d0jamE3KXQgQBqGAteE1mbQsk3xoNcqqUgaIGfWVg==}
+    peerDependencies:
+      '@types/leaflet': ^1.5.7
+      leaflet: ^1.6.0
+    peerDependenciesMeta:
+      '@types/leaflet':
+        optional: true
 
   '@vue/babel-helper-vue-transform-on@1.2.5':
     resolution: {integrity: sha512-lOz4t39ZdmU4DJAa2hwPYmKc8EsuGa2U0L9KaZaOJUt0UwQNjNA3AZTq6uEivhOKhhG1Wvy96SvYBoFmCg3uuw==}
@@ -2262,6 +2283,12 @@ packages:
 
   kolorist@1.8.0:
     resolution: {integrity: sha512-Y+60/zizpJ3HRH8DCss+q95yr6145JXZo46OTpFvDZWLfRCE4qChOyk1b26nMaNpfHHgxagk9dXT5OP0Tfe+dQ==}
+
+  leaflet-geosearch@4.2.0:
+    resolution: {integrity: sha512-UWNhFSaUcLlAP5UQY75ziWCl3cp0UCcmcFczPHLHjuAVPOHoPTe0nSgHJuI3pSTJBQm46NYoZOlgonrWceUznQ==}
+
+  leaflet@1.9.4:
+    resolution: {integrity: sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA==}
 
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -3834,6 +3861,9 @@ snapshots:
 
   '@floating-ui/utils@0.2.8': {}
 
+  '@googlemaps/js-api-loader@1.16.10':
+    optional: true
+
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
@@ -4221,6 +4251,13 @@ snapshots:
     dependencies:
       vite: 5.4.11(@types/node@22.10.2)(sass@1.76.0)
       vue: 3.5.13(typescript@5.7.2)
+
+  '@vue-leaflet/vue-leaflet@0.10.1(leaflet@1.9.4)(typescript@5.7.2)':
+    dependencies:
+      leaflet: 1.9.4
+      vue: 3.5.13(typescript@5.7.2)
+    transitivePeerDependencies:
+      - typescript
 
   '@vue/babel-helper-vue-transform-on@1.2.5': {}
 
@@ -5764,6 +5801,13 @@ snapshots:
   known-css-properties@0.35.0: {}
 
   kolorist@1.8.0: {}
+
+  leaflet-geosearch@4.2.0:
+    optionalDependencies:
+      '@googlemaps/js-api-loader': 1.16.10
+      leaflet: 1.9.4
+
+  leaflet@1.9.4: {}
 
   levn@0.4.1:
     dependencies:

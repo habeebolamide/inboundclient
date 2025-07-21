@@ -33,6 +33,12 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
     to: '/groups',
   }" />
 
+  <VerticalNavLink :item="{
+    title: 'Sessions',
+    icon: 'tabler-clock	',
+    to: '/sessions',
+  }" />
+
   <!--
     <VerticalNavLink
     :item="{
@@ -44,7 +50,7 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
   -->
 
   <!-- 👉 User Interface -->
-  <VerticalNavSectionTitle :item="{
+  <!-- <VerticalNavSectionTitle :item="{
     heading: 'User Interface',
   }" />
   <VerticalNavLink :item="{
@@ -61,10 +67,10 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
     title: 'Cards',
     icon: 'bx-credit-card',
     to: '/cards',
-  }" />
+  }" /> -->
 
   <!-- 👉 Forms & Tables -->
-  <VerticalNavSectionTitle :item="{
+  <!-- <VerticalNavSectionTitle :item="{
     heading: 'Forms & Tables',
   }" />
   <VerticalNavLink :item="{
@@ -76,7 +82,7 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
     title: 'Tables',
     icon: 'bx-table',
     to: '/tables',
-  }" />
+  }" /> -->
 
   <!-- 👉 Others -->
   <!--

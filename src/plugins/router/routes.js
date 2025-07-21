@@ -25,6 +25,11 @@ export const routes = [
         meta: { requiresAuth: true },
       },
       {
+        path: 'sessions',
+        component: () => import('@/pages/sessions.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
         path: 'typography',
         component: () => import('@/pages/typography.vue'),
         meta: { requiresAuth: true },

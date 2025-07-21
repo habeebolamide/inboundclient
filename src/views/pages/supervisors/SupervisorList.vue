@@ -87,5 +87,5 @@ defineExpose({
       </tr>
     </tbody>
   </VTable>
-  <VAlert v-else text="No Supervisor Found.Upload to see supervisors" type="error" class="my-5"></VAlert>
+  <VAlert v-else text="No Supervisor Found.Upload to see supervisors" type="error" class="my-5 mx-3"></VAlert>
 </template>

@@ -1,7 +1,9 @@
+/* eslint-env node */
 module.exports = {
   env: {
     browser: true,
     es2021: true,
+    node: true, // ✅ Fix for 'module' and 'process' not defined
   },
   extends: [
     '.eslintrc-auto-import.json',
@@ -11,61 +13,50 @@ module.exports = {
     'plugin:sonarjs/recommended',
     'plugin:case-police/recommended',
     'plugin:regexp/recommended',
-
+    'eslint:recommended',
     // 'plugin:unicorn/recommended',
   ],
   parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 13,
     sourceType: 'module',
+    extraFileExtensions: ['.vue'],
   },
   plugins: [
     'vue',
     'regex',
     'regexp',
   ],
-  ignorePatterns: ['src/plugins/iconify/*.js', 'node_modules', 'dist', '*.d.ts', 'vendor', '*.json'],
+  ignorePatterns: [
+    'src/plugins/iconify/*.js',
+    'node_modules',
+    'dist',
+    '*.d.ts',
+    'vendor',
+    '*.json',
+  ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'vue/valid-v-model': 'off',
 
-    // indentation (Already present in TypeScript)
     'comma-spacing': ['error', { before: false, after: true }],
     'key-spacing': ['error', { afterColon: true }],
-    'n/prefer-global/process': ['off'],
-    'sonarjs/cognitive-complexity': ['off'],
+    'n/prefer-global/process': 'off',
+    'sonarjs/cognitive-complexity': 'off',
 
     'vue/first-attribute-linebreak': ['error', {
       singleline: 'beside',
       multiline: 'below',
     }],
-
-
-    // indentation (Already present in TypeScript)
     'indent': ['error', 2],
-
-    // Enforce trailing comma (Already present in TypeScript)
     'comma-dangle': ['error', 'always-multiline'],
-
-    // Enforce consistent spacing inside braces of object (Already present in TypeScript)
     'object-curly-spacing': ['error', 'always'],
-
-    // Enforce camelCase naming convention
     'camelcase': 'error',
-
-    // Disable max-len
     'max-len': 'off',
-
-    // we don't want it
     'semi': ['error', 'never'],
-
-    // add parens ony when required in arrow function
     'arrow-parens': ['error', 'as-needed'],
-
-    // add new line above comment
     'newline-before-return': 'error',
-
-    // add new line above comment
     'lines-around-comment': [
       'error',
       {
@@ -75,17 +66,11 @@ module.exports = {
         allowClassStart: true,
         allowObjectStart: true,
         allowArrayStart: true,
-
-        // We don't want to add extra space above closing SECTION
         ignorePattern: '!SECTION',
       },
     ],
-
-    // Ignore _ as unused variable
-
     'array-element-newline': ['error', 'consistent'],
     'array-bracket-newline': ['error', 'consistent'],
-
     'vue/multi-word-component-names': 'off',
 
     'padding-line-between-statements': [
@@ -96,15 +81,12 @@ module.exports = {
       { blankLine: 'always', prev: '*', next: 'multiline-const' },
     ],
 
-    // Plugin: eslint-plugin-import
     'import/prefer-default-export': 'off',
     'import/newline-after-import': ['error', { count: 1 }],
     'no-restricted-imports': ['error', 'vuetify/components', {
       name: 'vue3-apexcharts',
       message: 'apexcharts are auto imported',
     }],
-
-    // For omitting extension for ts files
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -115,35 +97,29 @@ module.exports = {
         tsx: 'never',
       },
     ],
-
-    // ignore virtual files
     'import/no-unresolved': [2, {
       ignore: [
         '~pages$',
         'virtual:generated-layouts',
         '#auth$',
         '#components$',
-
-        // Ignore vite's ?raw imports
-        '.*\?raw',
+        '.*\\?raw',
       ],
     }],
-
-    // Thanks: https://stackoverflow.com/a/63961972/10796681
     'no-shadow': 'off',
 
-
-    // Plugin: eslint-plugin-promise
     'promise/always-return': 'off',
     'promise/catch-or-return': 'off',
 
-    // ESLint plugin vue
     'vue/block-tag-newline': 'error',
     'vue/component-api-style': 'error',
-    'vue/component-name-in-template-casing': ['error', 'PascalCase', { registeredComponentsOnly: false, ignores: ['/^swiper-/'] }],
+    'vue/component-name-in-template-casing': ['error', 'PascalCase', {
+      registeredComponentsOnly: false,
+      ignores: ['/^swiper-/'],
+    }],
     'vue/custom-event-name-casing': ['error', 'camelCase', {
       ignores: [
-        '/^(click):[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?/',
+        '/^(click):[a-z]+((\\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?/',
       ],
     }],
     'vue/define-macros-order': 'error',
@@ -153,7 +129,6 @@ module.exports = {
     'vue/match-component-file-name': 'error',
     'vue/no-child-content': 'error',
     'vue/require-default-prop': 'off',
-
     'vue/no-duplicate-attr-inheritance': 'error',
     'vue/no-empty-component-block': 'error',
     'vue/no-multiple-objects-in-class': 'error',
@@ -166,29 +141,15 @@ module.exports = {
     'vue/prefer-true-attribute-shorthand': 'error',
     'vue/v-on-function-call': 'error',
     'vue/no-restricted-class': ['error', '/^(p|m)(l|r)-/'],
-    'vue/valid-v-slot': ['error', {
-      allowModifiers: true,
-    }],
+    'vue/valid-v-slot': ['error', { allowModifiers: true }],
 
-    // -- Extension Rules
     'vue/no-irregular-whitespace': 'error',
     'vue/template-curly-spacing': 'error',
 
-    // -- Sonarlint
     'sonarjs/no-duplicate-string': 'off',
     'sonarjs/no-nested-template-literals': 'off',
 
-    // -- Unicorn
-    // 'unicorn/filename-case': 'off',
-    // 'unicorn/prevent-abbreviations': ['error', {
-    //   replacements: {
-    //     props: false,
-    //   },
-    // }],
-
-    // Internal Rules
-
-    // https://github.com/gmullerb/eslint-plugin-regex
+    // -- Regex rules
     'regex/invalid': [
       'error',
       [
@@ -202,13 +163,11 @@ module.exports = {
           replacement: '@styles',
           message: 'Use \'@styles\' path alias for importing styles from \'src/assets/styles\'',
         },
-
         {
           id: 'Disallow icon of icon library',
           regex: 'tabler-\\w',
           message: 'Only \'mdi\' icons are allowed',
         },
-
         {
           regex: '@core/\\w',
           message: 'You can\'t use @core when you are in @layouts module',
@@ -224,9 +183,8 @@ module.exports = {
           },
         },
       ],
-
-      // Ignore files
-      '\.eslintrc\.cjs',
+      // 👇 This file is ignored
+      '\\.eslintrc\\.cjs',
     ],
   },
   settings: {

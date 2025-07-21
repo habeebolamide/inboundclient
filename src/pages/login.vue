@@ -1,6 +1,9 @@
 <script setup>
-import authV1BottomShape from '@images/svg/auth-v1-bottom-shape.svg?url'
-import authV1TopShape from '@images/svg/auth-v1-top-shape.svg?url'
+import axios from '@/utils/axios'
+
+// import logo from '@images/logo.svg?raw';
+import { useRouter } from 'vue-router'
+import { toast } from 'vue3-toastify'
 
 const form = ref({
   email: '',
@@ -8,45 +11,67 @@ const form = ref({
   remember: false,
 })
 
+const router = useRouter()
 const isPasswordVisible = ref(false)
+const loading = ref(false)
+
+const login = async () => {
+  loading.value = true
+
+  try {
+    const res = await axios.post('/v1/organization/login', form.value)
+
+    toast.success('Login successfull!', {
+      position: 'top-right',
+      autoClose: 2000,
+    })
+    localStorage.setItem('auth_token', res.data.data.token)
+    localStorage.setItem('user', JSON.stringify(res.data.data.user))
+    localStorage.setItem('organization', JSON.stringify(res.data.data.user.organization))
+    router.push('/') // or wherever you want to redirect
+  } catch (error) {
+    if (error.response?.data?.errors) {
+      const errors = error.response.data.errors
+
+      Object.values(errors).forEach(err => {
+        toast.error(err[0])
+      })
+    } else {
+      console.log('Login error:', error)
+
+      toast.error(error.response?.data?.message || 'Something went wrong. Please try again.')
+    }
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
-    <div class="position-relative my-sm-16">
+    <div class="position-relative">
       <!-- 👉 Top shape -->
-      <VImg
-        :src="authV1TopShape"
-        class="text-primary auth-v1-top-shape d-none d-sm-block"
-      />
+      <!-- <VImg :src="authV1TopShape" class="text-primary auth-v1-top-shape d-none d-sm-block" /> -->
 
       <!-- 👉 Bottom shape -->
-      <VImg
-        :src="authV1BottomShape"
-        class="text-primary auth-v1-bottom-shape d-none d-sm-block"
-      />
-
+      <!-- <VImg :src="authV1BottomShape" class="text-primary auth-v1-bottom-shape d-none d-sm-block" /> -->
       <!-- 👉 Auth Card -->
       <VCard
         class="auth-card"
         max-width="460"
         :class="$vuetify.display.smAndUp ? 'pa-6' : 'pa-0'"
       >
-        <!-- <VCardItem class="justify-center">
-          <RouterLink
-            to="/"
-            class="app-logo"
-          >
+        <!--
+          <VCardItem class="justify-center">
+          <RouterLink to="/" class="app-logo">
 
-            <div
-              class="d-flex"
-              v-html="logo"
-            />
-            <h1 class="app-logo-title">
-              sneat
-            </h1>
+          <div class="d-flex" v-html="logo" />
+          <h1 class="app-logo-title">
+          sneat
+          </h1>
           </RouterLink>
-        </VCardItem> -->
+          </VCardItem> 
+        -->
 
         <VCardText>
           <h4 class="text-h4 mb-1">
@@ -58,7 +83,7 @@ const isPasswordVisible = ref(false)
         </VCardText>
 
         <VCardText>
-          <VForm @submit.prevent="$router.push('/')">
+          <VForm @submit.prevent="login">
             <VRow>
               <!-- email -->
               <VCol cols="12">
@@ -68,6 +93,7 @@ const isPasswordVisible = ref(false)
                   label="Email or Username"
                   type="email"
                   placeholder="johndoe@email.com"
+                  :disabled="loading"
                 />
               </VCol>
 
@@ -80,6 +106,7 @@ const isPasswordVisible = ref(false)
                   :type="isPasswordVisible ? 'text' : 'password'"
                   autocomplete="password"
                   :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
+                  :disabled="loading"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
 
@@ -102,6 +129,8 @@ const isPasswordVisible = ref(false)
                 <VBtn
                   block
                   type="submit"
+                  :loading="loading"
+                  :disabled="loading"
                 >
                   Login
                 </VBtn>
@@ -122,23 +151,6 @@ const isPasswordVisible = ref(false)
                   Create an account
                 </RouterLink>
               </VCol>
-
-              <!-- <VCol
-                cols="12"
-                class="d-flex align-center"
-              >
-                <VDivider />
-                <span class="mx-4 text-high-emphasis">or</span>
-                <VDivider />
-              </VCol> -->
-
-              <!-- auth providers -->
-              <!-- <VCol
-                cols="12"
-                class="text-center"
-              >
-                <AuthProvider />
-              </VCol> -->
             </VRow>
           </VForm>
         </VCardText>

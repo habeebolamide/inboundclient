@@ -1,10 +1,8 @@
 <script setup>
-import axios from '@/utils/axios';
-import authV1BottomShape from '@images/svg/auth-v1-bottom-shape.svg?url';
-import authV1TopShape from '@images/svg/auth-v1-top-shape.svg?url';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { toast } from 'vue3-toastify';
+import axios from '@/utils/axios'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { toast } from 'vue3-toastify'
 
 const router = useRouter()
 
@@ -26,8 +24,9 @@ const register = async () => {
 
   try {
     const res = await axios.post('/v1/organization/create', form.value)
-    console.log('Registration response:', res.data);
-    
+
+    console.log('Registration response:', res.data)
+
     toast.success('Organization registered successfully!')
     localStorage.setItem('auth_token', res.data.data.token)
     localStorage.setItem('user', JSON.stringify(res.data.data.user))
@@ -36,6 +35,7 @@ const register = async () => {
   } catch (error) {
     if (error.response?.data?.errors) {
       const errors = error.response.data.errors
+
       Object.values(errors).forEach(err => {
         toast.error(err[0])
       })
@@ -52,17 +52,19 @@ const register = async () => {
 <template>
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
     <div class="position-relative my-sm-16">
-      <!-- 👉 Top shape -->
-      <VImg
+      <!--
+        👉 Top shape
+        <VImg
         :src="authV1TopShape"
         class="text-primary auth-v1-top-shape d-none d-sm-block"
-      />
+        />
 
-      <!-- 👉 Bottom shape -->
-      <VImg
+        👉 Bottom shape
+        <VImg
         :src="authV1BottomShape"
         class="text-primary auth-v1-bottom-shape d-none d-sm-block"
-      />
+        /> 
+      -->
 
       <!-- 👉 Auth card -->
       <VCard
@@ -70,7 +72,6 @@ const register = async () => {
         max-width="460"
         :class="$vuetify.display.smAndUp ? 'pa-6' : 'pa-0'"
       >
-
         <VCardText>
           <h4 class="text-h4 mb-1">
             Adventure starts here 🚀
@@ -132,7 +133,7 @@ const register = async () => {
                   :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
-                
+
                 <!-- password confirmation -->
                 <VTextField
                   v-model="form.password_confirmation"
@@ -154,7 +155,6 @@ const register = async () => {
                 >
                   Sign up
                 </VBtn>
-
               </VCol>
 
               <!-- login instead -->

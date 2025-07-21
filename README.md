@@ -1,35 +1,47 @@
-# vue
+# InBound Admin Panel
 
-This template should help get you started developing with Vue 3 in Vite.
+**InBound** is a smart attendance tracking platform for schools, companies, NGOs, and organizations.  
+This is the **Admin Panel (Frontend)** built with **Vue 3**, **Vite**, **Pinia**, and **Vuetify**.
 
-## Recommended IDE Setup
+> Admins can create groups, upload students/supervisors, manage attendance sessions, and monitor reports.
 
-[VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur).
+---
 
-## Type Support for `.vue` Imports in TS
+## 🚀 Features
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates.
+- ✅ Admin authentication
+- ✅ Create and manage groups
+- ✅ Upload students via CSV
+- ✅ Upload supervisors (backend/frontend)
+- 🔜 Create attendance sessions with date/time/location
+- 🔜 View and export attendance logs
+- 🔜 Real-time supervisor monitoring
+- 🔜 AI fraud detection (GPS spoofing, early exits)
 
-However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can run `Volar: Switch TS Plugin on/off` from VS Code command palette.
+---
 
-## Customize configuration
+## 🧰 Tech Stack
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- [Vue 3](https://vuejs.org/)
+- [Vite](https://vitejs.dev/)
+- [Vuetify 3](https://next.vuetifyjs.com/)
+- [Vue Router](https://router.vuejs.org/)
+- [Axios](https://axios-http.com/)
+- [VueUse](https://vueuse.org/)
 
-## Project Setup
+---
 
-```sh
-npm install
-```
+## 📦 Installation
 
-### Compile and Hot-Reload for Development
+```bash
+# Clone repository
+git clone https://github.com/habeebolamide/inbound.git
+cd inbound-admin-panel
 
-```sh
+# Install dependencies
+pnpm install
+
+# Start development server
 npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
+# or
+yarn dev

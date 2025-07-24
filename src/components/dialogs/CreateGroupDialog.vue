@@ -19,6 +19,10 @@ const dialogModel = computed({
 
 const onReset = () => {
     emit('groupcreated')
+    form.value = {
+        name: '',
+        file: null,
+    }
     dialogModel.value = false
 }
 

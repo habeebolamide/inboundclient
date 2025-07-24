@@ -24,7 +24,6 @@ const loading = ref(false)
 const form = ref({
     title: '',
     group_id: '',
-    // supervisor_id: '',
     latitude: '',
     longitude: '',
     radius: 50,
@@ -52,7 +51,7 @@ const createSession = async () => {
 
     loading.value = true
     try {
-        const response = await axios.post('/v1/organization/checkin/create', form.value)
+        const response = await axios.post('/v1/organization/sessions/create', form.value)
         toast.success('Session created successfully!', { autoClose: 2000 })
         onReset()
     } catch (err) {
@@ -126,7 +125,12 @@ onMounted(() => {
                             :disabled="loading" />
                     </VCol>
                     <VCol cols="12">
-                        <LocationPicker v-model:latitude="form.latitude" v-model:longitude="form.longitude" />
+                        <VTextField v-model="form.building_name" label="Building Name" readonly />
+                    </VCol>
+                    <VCol cols="12">
+                        <LocationPicker @update:latitude="form.latitude = $event"
+                            @update:longitude="form.longitude = $event"
+                            @update:locationName="form.building_name = $event" />
                     </VCol>
                 </VRow>
             </VCardItem>

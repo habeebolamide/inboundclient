@@ -20,6 +20,9 @@ const dialogModel = computed({
 const onReset = () => {
   emit('supervisorimported')
   dialogModel.value = false
+  form.value = {
+    supervisor_csv: null,
+  }
 }
 
 const form = ref({

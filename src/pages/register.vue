@@ -25,7 +25,7 @@ const register = async () => {
   try {
     const res = await axios.post('/v1/organization/create', form.value)
 
-    console.log('Registration response:', res.data)
+    // console.log('Registration response:', res.data)
 
     toast.success('Organization registered successfully!')
     localStorage.setItem('auth_token', res.data.data.token)
@@ -67,11 +67,7 @@ const register = async () => {
       -->
 
       <!-- 👉 Auth card -->
-      <VCard
-        class="auth-card"
-        max-width="460"
-        :class="$vuetify.display.smAndUp ? 'pa-6' : 'pa-0'"
-      >
+      <VCard class="auth-card" max-width="460" :class="$vuetify.display.smAndUp ? 'pa-6' : 'pa-0'">
         <VCardText>
           <h4 class="text-h4 mb-1">
             Adventure starts here 🚀
@@ -86,87 +82,44 @@ const register = async () => {
             <VRow>
               <!-- Username -->
               <VCol cols="12">
-                <VTextField
-                  v-model="form.name"
-                  autofocus
-                  label="Organization Name"
-                  placeholder="Inbound"
-                />
+                <VTextField v-model="form.name" autofocus label="Organization Name" placeholder="Inbound" />
               </VCol>
               <!-- Slug -->
               <VCol cols="12">
-                <VTextField
-                  v-model="form.slug"
-                  autofocus
-                  label="Organization slug"
-                  placeholder="Ibn"
-                />
+                <VTextField v-model="form.slug" autofocus label="Organization slug" placeholder="Ibn" />
               </VCol>
 
               <!-- type -->
               <VCol cols="12">
-                <VSelect
-                  v-model="form.type"
-                  :items="['company', 'school']"
-                  label="Type"
-                  placeholder="Select type"
-                />
+                <VSelect v-model="form.type" :items="['company', 'school']" label="Type" placeholder="Select type" />
               </VCol>
               <!-- email -->
               <VCol cols="12">
-                <VTextField
-                  v-model="form.email"
-                  label="Email"
-                  type="email"
-                  placeholder="johndoe@email.com"
-                />
+                <VTextField v-model="form.email" label="Email" type="email" placeholder="johndoe@email.com" />
               </VCol>
 
               <!-- password -->
               <VCol cols="12">
-                <VTextField
-                  v-model="form.password"
-                  label="Password"
-                  autocomplete="password"
-                  placeholder="············"
+                <VTextField v-model="form.password" label="Password" autocomplete="password" placeholder="············"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
-                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
-                />
+                  @click:append-inner="isPasswordVisible = !isPasswordVisible" />
 
                 <!-- password confirmation -->
-                <VTextField
-                  v-model="form.password_confirmation"
-                  label="Confirm Password"
-                  autocomplete="password"
-                  class="mt-6"
-                  placeholder="············"
-                  :type="isPasswordConfirmationVisible ? 'text' : 'password'"
+                <VTextField v-model="form.password_confirmation" label="Confirm Password" autocomplete="password"
+                  class="mt-6" placeholder="············" :type="isPasswordConfirmationVisible ? 'text' : 'password'"
                   :append-inner-icon="isPasswordConfirmationVisible ? 'bx-hide' : 'bx-show'"
-                  @click:append-inner="isPasswordConfirmationVisible = !isPasswordConfirmationVisible"
-                />
+                  @click:append-inner="isPasswordConfirmationVisible = !isPasswordConfirmationVisible" />
 
-                <VBtn
-                  class="my-6"
-                  block
-                  type="submit"
-                  :loading="loading"
-                  :disabled="loading"
-                >
+                <VBtn class="my-6" block type="submit" :loading="loading" :disabled="loading">
                   Sign up
                 </VBtn>
               </VCol>
 
               <!-- login instead -->
-              <VCol
-                cols="12"
-                class="text-center text-base"
-              >
+              <VCol cols="12" class="text-center text-base">
                 <span>Already have an account?</span>
-                <RouterLink
-                  class="text-primary ms-1"
-                  to="/login"
-                >
+                <RouterLink class="text-primary ms-1" to="/login">
                   Sign in instead
                 </RouterLink>
               </VCol>

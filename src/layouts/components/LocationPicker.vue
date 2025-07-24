@@ -4,58 +4,110 @@ import {
     LMarker,
     LTileLayer,
 } from '@vue-leaflet/vue-leaflet'
-import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch'
+import 'leaflet-geosearch/assets/css/leaflet.css'
+import 'leaflet/dist/leaflet.css'
 import { onMounted, ref } from 'vue'
 
-const emit = defineEmits(['update:latitude', 'update:longitude'])
+import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch'
 
-import 'leaflet/dist/leaflet.css'
+const emit = defineEmits(['update:latitude', 'update:longitude', 'update:locationName'])
+
 const mapRef = ref(null)
-const marker = ref([6.5244, 3.3792]) // Lagos fallback
+const marker = ref([7.2076, 3.3869])
+const mapCenter = ref(marker.value)
 
-// register components
-defineExpose({ LMap, LTileLayer, LMarker })
-// helper to init the geosearch control safely
+// Replace with your LocationIQ API Key
+const LOCATIONIQ_API_KEY = 'pk.fe2c718e886c22261f70a1b3041dc292'
+
+const fetchLocationName = async (lat, lng) => {
+    try {
+        const response = await fetch(`https://us1.locationiq.com/v1/reverse?key=${LOCATIONIQ_API_KEY}&lat=${lat}&lon=${lng}&format=json`)
+        const data = await response.json()
+        emit('update:locationName', data.display_name || 'Unknown location')
+    } catch (err) {
+        console.error('Reverse geocoding failed:', err)
+    }
+}
+
+const updateLocation = (lat, lng) => {
+    marker.value = [lat, lng]
+    mapCenter.value = [lat, lng]
+    emit('update:latitude', lat)
+    emit('update:longitude', lng)
+    fetchLocationName(lat, lng)
+}
+
 const initGeoSearch = (map) => {
     const provider = new OpenStreetMapProvider()
-
     const searchControl = new GeoSearchControl({
         provider,
         style: 'bar',
-        showMarker: false,
         autoClose: true,
-        retainZoomLevel: false,
-        searchLabel: 'Search building or area...',
+        searchLabel: 'Search location...',
+        keepResult: true,
+        showMarker: false,
     })
 
     map.addControl(searchControl)
 
     map.on('geosearch/showlocation', (result) => {
         const { y: lat, x: lng } = result.location
-        marker.value = [lat, lng]
-        emit('update:latitude', lat)
-        emit('update:longitude', lng)
+        updateLocation(lat, lng)
+    })
+
+    map.on('click', (e) => {
+        const { lat, lng } = e.latlng
+        updateLocation(lat, lng)
     })
 }
 
-onMounted(async () => {
+// Get user's real location
+const useCurrentLocation = () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude
+                const lng = position.coords.longitude
+                updateLocation(lat, lng)
+            },
+            (error) => {
+                alert('Unable to get current location. Please allow permission.')
+                console.error(error)
+            }
+        )
+    } else {
+        alert('Geolocation is not supported by your browser.')
+    }
+}
+
+onMounted(() => {
     const interval = setInterval(() => {
         const map = mapRef.value?.leafletObject
         if (map) {
             clearInterval(interval)
             initGeoSearch(map)
+            updateLocation(marker.value[0], marker.value[1])
         }
     }, 100)
 })
 </script>
 
-
 <template>
-    <LMap ref="mapRef" :zoom="17" :center="marker" style="height: 400px;">
-        <LTileLayer url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-            attribution="© Esri" />
-        <LMarker :lat-lng="marker" />
-    </LMap>
+    <div>
+        <div style="margin-bottom: 10px; text-align: right;">
+            <VBtn @click="useCurrentLocation"
+                style="padding: 6px 12px; color: white; border-radius: 6px; border: none; cursor: pointer;">
+                📍 Use Current Location
+            </VBtn>
+        </div>
+
+        <LMap ref="mapRef" :zoom="18" :center="mapCenter" style="height: 400px; border-radius: 8px;">
+            <LTileLayer
+                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                attribution="Tiles © Esri" />
+            <LMarker :lat-lng="marker" />
+        </LMap>
+    </div>
 </template>
 
 <style scoped>
@@ -65,14 +117,6 @@ onMounted(async () => {
     z-index: 9999;
 }
 
-.leaflet-control-geosearch form {
-    background-color: white;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    padding: 5px 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
 .leaflet-control-geosearch input {
     padding: 8px 12px;
     border: none;
@@ -80,20 +124,14 @@ onMounted(async () => {
     width: 100%;
     font-size: 14px;
     border-radius: 6px;
-    background: #f9f9f9;
+    background: #fff;
     color: #333;
-}
-
-.leaflet-control-geosearch input::placeholder {
-    color: #aaa;
 }
 
 .leaflet-control-geosearch .results {
     background: #fff;
     border-radius: 6px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 4px;
-    font-size: 14px;
     max-height: 200px;
     overflow-y: auto;
 }

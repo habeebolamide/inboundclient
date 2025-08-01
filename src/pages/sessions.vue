@@ -155,7 +155,7 @@ onMounted(() => {
 
 
     <CreateSessionDialog v-model:is-dialog-visible="createSession" @sessioncreated="OnSessionCreated" />
-    <EditSessionDialog v-if="form" v-model:is-dialog-visible="editSession" :current=form
+    <EditSessionDialog v-if="editSession" v-model:is-dialog-visible="editSession" :current=form
         @sessionedited="OnSessionCreated" />
     <ConfirmDialog v-model:isDialogVisible="isConfirmDialogVisible" cancel-title="Cancelled" :error="error" :done="done"
         confirm-title="Sucessfull!" confirm-msg="successfull."

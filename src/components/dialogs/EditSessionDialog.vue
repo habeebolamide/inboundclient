@@ -36,7 +36,7 @@ const updateSession = async () => {
     // return console.log('Updating session with form:', form);
     loading.value = true
     try {
-        const response = await axios.post('/v1/organization/checkin/update', form)
+        const response = await axios.post('/v1/organization/sessions/update', form)
         toast.success('Session updated successfully!', { autoClose: 2000 })
         onReset()
     } catch (err) {
@@ -73,6 +73,8 @@ const getOrganizationSupervisors = () => {
 onMounted(() => {
     getOrgGroups()
     getOrganizationSupervisors()
+    console.log('Forms', form);
+
 })
 </script>
 
@@ -110,7 +112,12 @@ onMounted(() => {
                             :disabled="loading" />
                     </VCol>
                     <VCol cols="12">
-                        <LocationPicker v-model:latitude="form.latitude" v-model:longitude="form.longitude" />
+                        <VTextField v-model="form.building_name" label="Building Name" readonly />
+                    </VCol>
+                    <VCol cols="12">
+                        <LocationPicker @update:latitude="form.latitude = $event"
+                            @update:longitude="form.longitude = $event"
+                            @update:locationName="form.building_name = $event" />
                     </VCol>
                 </VRow>
             </VCardItem>

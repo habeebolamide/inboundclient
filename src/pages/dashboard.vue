@@ -1,153 +1,79 @@
 <script setup>
-import AnalyticsCongratulations from '@/views/dashboard/AnalyticsCongratulations.vue'
-import AnalyticsFinanceTabs from '@/views/dashboard/AnalyticsFinanceTab.vue'
-import AnalyticsOrderStatistics from '@/views/dashboard/AnalyticsOrderStatistics.vue'
-import AnalyticsProfitReport from '@/views/dashboard/AnalyticsProfitReport.vue'
-import AnalyticsTotalRevenue from '@/views/dashboard/AnalyticsTotalRevenue.vue'
-import AnalyticsTransactions from '@/views/dashboard/AnalyticsTransactions.vue'
+import axios from '@/utils/axios';
+import { onMounted } from 'vue';
 
-// 👉 Images
-import chart from '@images/cards/chart-success.png'
-import card from '@images/cards/credit-card-primary.png'
-import paypal from '@images/cards/paypal-error.png'
-import wallet from '@images/cards/wallet-info.png'
+const user = JSON.parse(localStorage.getItem('user') || '{}');
+const analyticsData = ref(null);
+
+const analytics = () => {
+  axios.get('/dashboard/analytics')
+    .then((res) => {
+      analyticsData.value = res.data.data;
+      console.log('Analytics data:', res.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching analytics data:', error);
+    });
+}
+
+onMounted(() => {
+  analytics();
+});
 </script>
 
 <template>
-  <VRow>
-    <!-- 👉 Congratulations -->
-    <VCol
-      cols="12"
-      md="8"
-    >
-      <AnalyticsCongratulations />
-    </VCol>
+  <div class="dashboard-wrapper">
+    <h1>Welcome Back, {{ user.name }} </h1>
+    <h3>Ready to continue your learning journey?</h3>
 
-    <VCol
-      cols="12"
-      sm="4"
-    >
-      <VRow>
-        <!-- 👉 Profit -->
-        <VCol
-          cols="12"
-          md="6"
-        >
-          <CardStatisticsVertical
-            v-bind="{
-              title: 'Profit',
-              image: chart,
-              stats: '$12,628',
-              change: 72.80,
-            }"
-          />
-        </VCol>
+    <VRow class="mt-5" dense>
+      <VCol cols="12" md="6" lg="4">
+        <VCard class="pa-4">
+          <h2>Upload Materials</h2>
+          <p>Add new courses PDFs and documents</p>
+          <VBtn color="primary" class="mt-3">Upload Documents</VBtn>
+        </VCard>
+      </VCol>
 
-        <!-- 👉 Sales -->
-        <VCol
-          cols="12"
-          md="6"
-        >
-          <CardStatisticsVertical
-            v-bind="{
-              title: 'Sales',
-              image: wallet,
-              stats: '$4,679',
-              change: 28.42,
-            }"
-          />
-        </VCol>
-      </VRow>
-    </VCol>
+      <VCol cols="12" md="6" lg="4">
+        <VCard class="pa-4">
+          <h2>View Notes</h2>
+          <p>Access your organized study notes.</p>
+          <VBtn color="primary" class="mt-3">Access Notes</VBtn>
+        </VCard>
+      </VCol>
 
-    <!-- 👉 Total Revenue -->
-    <VCol
-      cols="12"
-      md="8"
-      order="2"
-      order-md="1"
-    >
-      <AnalyticsTotalRevenue />
-    </VCol>
+      <VCol cols="12" md="6" lg="4">
+        <VCard class="pa-4">
+          <h2>Take Quiz</h2>
+          <p>Test your knowledge with AI quizzes</p>
+          <VBtn color="primary" class="mt-3">Access Quiz</VBtn>
+        </VCard>
+      </VCol>
+    </VRow>
 
-    <VCol
-      cols="12"
-      sm="8"
-      md="4"
-      order="1"
-      order-md="2"
-    >
-      <VRow>
-        <!-- 👉 Payments -->
-        <VCol
-          cols="12"
-          sm="6"
-        >
-          <CardStatisticsVertical
-            v-bind=" {
-              title: 'Payments',
-              image: paypal,
-              stats: '$2,468',
-              change: -14.82,
-            }"
-          />
-        </VCol>
-
-        <!-- 👉 Revenue -->
-        <VCol
-          cols="12"
-          sm="6"
-        >
-          <CardStatisticsVertical
-            v-bind="{
-              title: 'Transactions',
-              image: card,
-              stats: '$14,857',
-              change: 28.14,
-            }"
-          />
-        </VCol>
-      </VRow>
-
-      <VRow>
-        <!-- 👉 Profit Report -->
-        <VCol
-          cols="12"
-          sm="12"
-        >
-          <AnalyticsProfitReport />
-        </VCol>
-      </VRow>
-    </VCol>
-
-    <!-- 👉 Order Statistics -->
-    <VCol
-      cols="12"
-      md="4"
-      sm="6"
-      order="3"
-    >
-      <AnalyticsOrderStatistics />
-    </VCol>
-
-    <!-- 👉 Tabs chart -->
-    <VCol
-      cols="12"
-      md="4"
-      sm="6"
-      order="3"
-    >
-      <AnalyticsFinanceTabs />
-    </VCol>
-
-    <!-- 👉 Transactions -->
-    <VCol
-      cols="12"
-      md="4"
-      sm="6"
-      order="3"
-    >
-      <AnalyticsTransactions />
-    </VCol>
-  </VRow>
+    <VRow>
+      <VCol cols="12">
+        <VCard class="pa-4 mt-4">
+          <VCardTitle>Recent Activites</VCardTitle>
+          <VCardText class="text-center my-3">
+            <div v-if="analyticsData === null">
+              <p>No recent activities.</p>
+              <VBtn>
+                Upload First Document
+              </VBtn>
+            </div>
+            <div v-else>
+              <div v-for="(ana, index) in analyticsData.recent_uploads">
+                <VCard class="mb-2 pa-2 text-left" :key="index">
+                  <VCardTitle>{{ ana.course_title }}</VCardTitle>
+                  <VCardText>Uploaded on: {{ new Date(ana.created_at).toLocaleDateString() }}</VCardText>
+                </VCard>
+              </div>
+            </div>
+          </VCardText>
+        </VCard>
+      </VCol>
+    </VRow>
+  </div>
 </template>

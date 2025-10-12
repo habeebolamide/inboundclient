@@ -1,6 +1,6 @@
 <script>
-import { useDisplay } from 'vuetify'
-import VerticalNav from '@layouts/components/VerticalNav.vue'
+import VerticalNav from '@layouts/components/VerticalNav.vue';
+import { useDisplay } from 'vuetify';
 
 export default defineComponent({
   setup(props, { slots }) {
@@ -14,7 +14,7 @@ export default defineComponent({
     // ℹ️ This is alternative to below two commented watcher
     // We want to show overlay if overlay nav is visible and want to hide overlay if overlay is hidden and vice versa.
     syncRef(isOverlayNavActive, isLayoutOverlayVisible)
-    
+
     return () => {
       // 👉 Vertical nav
       const verticalNav = h(VerticalNav, { isOverlayNavActive: isOverlayNavActive.value, toggleIsOverlayNavActive }, {
@@ -91,6 +91,7 @@ export default defineComponent({
 
   .layout-navbar {
     z-index: variables.$layout-vertical-nav-layout-navbar-z-index;
+    display: none;
 
     .navbar-content-container {
       block-size: variables.$layout-vertical-nav-navbar-height;

@@ -19,15 +19,14 @@ const login = async () => {
   loading.value = true
 
   try {
-    const res = await axios.post('/v1/organization/login', form.value)
+    const res = await axios.post('/auth/login', form.value)
 
     toast.success('Login successfull!', {
       position: 'top-right',
       autoClose: 2000,
     })
     localStorage.setItem('auth_token', res.data.data.token)
-    localStorage.setItem('user', JSON.stringify(res.data.data.user))
-    localStorage.setItem('organization', JSON.stringify(res.data.data.user.organization))
+    localStorage.setItem('user', JSON.stringify(res.data.data.userData))
     router.push('/') // or wherever you want to redirect
   } catch (error) {
     if (error.response?.data?.errors) {
@@ -56,11 +55,7 @@ const login = async () => {
       <!-- 👉 Bottom shape -->
       <!-- <VImg :src="authV1BottomShape" class="text-primary auth-v1-bottom-shape d-none d-sm-block" /> -->
       <!-- 👉 Auth Card -->
-      <VCard
-        class="auth-card"
-        max-width="460"
-        :class="$vuetify.display.smAndUp ? 'pa-6' : 'pa-0'"
-      >
+      <VCard class="auth-card" max-width="460" :class="$vuetify.display.smAndUp ? 'pa-6' : 'pa-0'">
         <!--
           <VCardItem class="justify-center">
           <RouterLink to="/" class="app-logo">
@@ -75,7 +70,7 @@ const login = async () => {
 
         <VCardText>
           <h4 class="text-h4 mb-1">
-            Welcome to InBound! 👋🏻
+            Welcome to StudyBuddy! 👋🏻
           </h4>
           <p class="mb-0">
             Please sign-in to your account and start the adventure
@@ -87,67 +82,38 @@ const login = async () => {
             <VRow>
               <!-- email -->
               <VCol cols="12">
-                <VTextField
-                  v-model="form.email"
-                  autofocus
-                  label="Email or Username"
-                  type="email"
-                  placeholder="johndoe@email.com"
-                  :disabled="loading"
-                />
+                <VTextField v-model="form.email" autofocus label="Email" type="email" placeholder="johndoe@email.com"
+                  :disabled="loading" />
               </VCol>
 
               <!-- password -->
               <VCol cols="12">
-                <VTextField
-                  v-model="form.password"
-                  label="Password"
-                  placeholder="············"
-                  :type="isPasswordVisible ? 'text' : 'password'"
-                  autocomplete="password"
-                  :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
-                  :disabled="loading"
-                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
-                />
+                <VTextField v-model="form.password" label="Password" placeholder="············"
+                  :type="isPasswordVisible ? 'text' : 'password'" autocomplete="password"
+                  :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'" :disabled="loading"
+                  @click:append-inner="isPasswordVisible = !isPasswordVisible" />
 
                 <!-- remember me checkbox -->
-                <div class="d-flex align-center justify-space-between flex-wrap my-6">
-                  <VCheckbox
-                    v-model="form.remember"
-                    label="Remember me"
-                  />
+                <!-- <div class="d-flex align-center justify-space-between flex-wrap my-6">
+                  <VCheckbox v-model="form.remember" label="Remember me" />
 
-                  <a
-                    class="text-primary"
-                    href="javascript:void(0)"
-                  >
+                  <a class="text-primary" href="javascript:void(0)">
                     Forgot Password?
                   </a>
-                </div>
+                </div> -->
 
                 <!-- login button -->
-                <VBtn
-                  block
-                  type="submit"
-                  :loading="loading"
-                  :disabled="loading"
-                >
+                <VBtn block type="submit" :loading="loading" :disabled="loading" class="my-3">
                   Login
                 </VBtn>
               </VCol>
 
               <!-- create account -->
-              <VCol
-                cols="12"
-                class="text-body-1 text-center"
-              >
+              <VCol cols="12" class="text-body-1 text-center">
                 <span class="d-inline-block">
                   New on our platform?
                 </span>
-                <RouterLink
-                  class="text-primary ms-1 d-inline-block text-body-1"
-                  to="/register"
-                >
+                <RouterLink class="text-primary ms-1 d-inline-block text-body-1" to="/register">
                   Create an account
                 </RouterLink>
               </VCol>

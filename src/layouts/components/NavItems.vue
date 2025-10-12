@@ -1,5 +1,4 @@
 <script setup>
-import VerticalNavSectionTitle from '@/@layouts/components/VerticalNavSectionTitle.vue';
 import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
 </script>
 
@@ -11,9 +10,9 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
     to: '/dashboard',
   }" />
   <!-- 👉 Apps & Pages -->
-  <VerticalNavSectionTitle :item="{
+  <!-- <VerticalNavSectionTitle :item="{
     heading: 'Pages',
-  }" />
+  }" /> -->
 
   <VerticalNavLink :item="{
     title: 'Account Settings',
@@ -21,23 +20,6 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
     to: '/account-settings',
   }" />
 
-  <VerticalNavLink :item="{
-    title: 'Supervisors',
-    icon: 'bx-user-check',
-    to: '/supervisors',
-  }" />
-
-  <VerticalNavLink :item="{
-    title: 'Groups',
-    icon: 'tabler-users',
-    to: '/groups',
-  }" />
-
-  <VerticalNavLink :item="{
-    title: 'Sessions',
-    icon: 'tabler-clock	',
-    to: '/sessions',
-  }" />
 
   <!--
     <VerticalNavLink

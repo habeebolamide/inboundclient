@@ -21,6 +21,7 @@ import { onMounted } from 'vue';
 
 
 const notes = ref([]);
+const router = useRouter()
 
 const fetchNotes = () => {
     axios.get('/studyplan/get_all_study_notes')
@@ -32,6 +33,11 @@ const fetchNotes = () => {
             console.error('Error fetching notes:', error);
         });
 };
+
+const viewNote = (id) => {
+    router.push(`/my-note/${id}`);
+};
+
 
 onMounted(() => {
     fetchNotes();

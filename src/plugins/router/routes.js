@@ -15,6 +15,11 @@ export const routes = [
         meta: { requiresAuth: true },
       },
       {
+        path: 'my-note/:id',
+        component: () => import('@/pages/viewnotes.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
         path: 'quizzes',
         component: () => import('@/pages/quizzes.vue'),
         meta: { requiresAuth: true },

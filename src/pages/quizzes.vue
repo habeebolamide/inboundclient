@@ -13,7 +13,7 @@
             </VCol>
         </VRow>
         <VRow v-else class="my-5">
-            <VAlert type="info" class="mb-4" colored-border>
+            <VAlert type="error" class="mb-4" colored-border>
                 <VCol cols="12" class="text-center">
                     <p>No quizzes available. Please upload documents to generate quizzes.</p>
                 </VCol>

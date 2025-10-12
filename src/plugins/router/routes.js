@@ -10,6 +10,16 @@ export const routes = [
         meta: { requiresAuth: true },
       },
       {
+        path: 'notes',
+        component: () => import('@/pages/notes.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'quizzes',
+        component: () => import('@/pages/quizzes.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
         path: 'account-settings',
         component: () => import('@/pages/account-settings.vue'),
         meta: { requiresAuth: true },

@@ -15,10 +15,24 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
   }" /> -->
 
   <VerticalNavLink :item="{
+    title: 'Notes',
+    icon: 'bx-book',
+    to: '/notes',
+  }" />
+
+  <VerticalNavLink :item="{
+    title: 'Quizzes',
+    icon: 'bx-brain',
+    to: '/quizzes',
+  }" />
+
+  <VerticalNavLink :item="{
     title: 'Account Settings',
     icon: 'bx-user',
     to: '/account-settings',
   }" />
+
+
 
 
   <!--

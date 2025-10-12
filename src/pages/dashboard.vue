@@ -55,7 +55,7 @@ onMounted(() => {
     <VRow>
       <VCol cols="12">
         <VCard class="pa-4 mt-4">
-          <VCardTitle>Recent Activites</VCardTitle>
+          <VCardTitle>Recent Uploads</VCardTitle>
           <VCardText class="text-center my-3">
             <div v-if="analyticsData === null">
               <p>No recent activities.</p>

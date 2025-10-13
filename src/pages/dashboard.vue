@@ -1,9 +1,11 @@
 <script setup>
+import UploadNoteDialog from '@/components/dialogs/UploadNoteDialog.vue';
 import axios from '@/utils/axios';
 import { onMounted } from 'vue';
 
 const user = JSON.parse(localStorage.getItem('user') || '{}');
 const analyticsData = ref(null);
+const uploadNote = ref(false)
 
 const analytics = () => {
   axios.get('/dashboard/analytics')
@@ -31,7 +33,7 @@ onMounted(() => {
         <VCard class="pa-4">
           <h2>Upload Materials</h2>
           <p>Add new courses PDFs and documents</p>
-          <VBtn color="primary" class="mt-3">Upload Documents</VBtn>
+          <VBtn color="primary" class="mt-3" @click="uploadNote = true">Upload Documents</VBtn>
         </VCard>
       </VCol>
 
@@ -75,5 +77,7 @@ onMounted(() => {
         </VCard>
       </VCol>
     </VRow>
+
+    <UploadNoteDialog v-model:is-dialog-visible="uploadNote" @onnoteuploaded="analytics" />
   </div>
 </template>

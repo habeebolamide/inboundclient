@@ -91,7 +91,7 @@ export default defineComponent({
 
   .layout-navbar {
     z-index: variables.$layout-vertical-nav-layout-navbar-z-index;
-    display: none;
+    // display: none;
 
     .navbar-content-container {
       block-size: variables.$layout-vertical-nav-navbar-height;

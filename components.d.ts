@@ -11,7 +11,7 @@ declare module 'vue' {
     CardStatisticsVertical: typeof import('./src/@core/components/cards/CardStatisticsVertical.vue')['default']
     CardStatisticsWithImages: typeof import('./src/@core/components/cards/CardStatisticsWithImages.vue')['default']
     ConfirmDialog: typeof import('./src/components/dialogs/ConfirmDialog.vue')['default']
-    copy: typeof import('./src/components/dialogs/EditSessionDialog copy.vue')['default']
+    copy: typeof import('./src/components/dialogs/CreateGroupDialog copy.vue')['default']
     CreateGroupDialog: typeof import('./src/components/dialogs/CreateGroupDialog.vue')['default']
     CreateSessionDialog: typeof import('./src/components/dialogs/CreateSessionDialog.vue')['default']
     EditSessionDialog: typeof import('./src/components/dialogs/EditSessionDialog.vue')['default']
@@ -22,6 +22,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     ThemeSwitcher: typeof import('./src/@core/components/ThemeSwitcher.vue')['default']
     UpgradeToPro: typeof import('./src/components/UpgradeToPro.vue')['default']
+    UploadNoteDialog: typeof import('./src/components/dialogs/UploadNoteDialog.vue')['default']
     VueApexCharts: typeof import('vue3-apexcharts')['default']
   }
 }

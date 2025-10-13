@@ -2,10 +2,30 @@
 import Footer from '@/layouts/components/Footer.vue';
 import NavItems from '@/layouts/components/NavItems.vue';
 import VerticalNavLayout from '@layouts/components/VerticalNavLayout.vue';
+import NavbarThemeSwitcher from './NavbarThemeSwitcher.vue';
+import UserProfile from './UserProfile.vue';
 </script>
 
 <template>
   <VerticalNavLayout>
+
+    <template #navbar="{ toggleVerticalOverlayNavActive }">
+      <div class="d-flex h-100 align-center">
+        <!-- 👉 Vertical nav toggle in overlay mode -->
+        <IconBtn class="ms-n3 d-lg-none" @click="toggleVerticalOverlayNavActive(true)">
+          <VIcon icon="bx-menu" />
+        </IconBtn>
+
+        <VSpacer />
+
+
+
+        <NavbarThemeSwitcher class="me-1" />
+
+        <UserProfile />
+      </div>
+    </template>
+
     <template #vertical-nav-header="{ toggleIsOverlayNavActive }">
       <RouterLink to="/" class="app-logo app-title-wrapper">
         <!-- <div class="d-flex" v-html="logo" /> -->

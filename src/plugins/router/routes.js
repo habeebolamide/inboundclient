@@ -25,6 +25,11 @@ export const routes = [
         meta: { requiresAuth: true },
       },
       {
+        path: 'take-quiz/:id',
+        component: () => import('@/pages/takequiz.vue'),
+        meta: { requiresAuth: true },
+      },
+      {
         path: 'account-settings',
         component: () => import('@/pages/account-settings.vue'),
         meta: { requiresAuth: true },

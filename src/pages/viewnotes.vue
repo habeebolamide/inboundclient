@@ -23,7 +23,9 @@
             </VCol>
 
             <VCol cols="12" class="mt-4" v-if="!study_notes.quiz_exists">
-                <VBtn color="primary" style="width: 100%; height: 50px; border-radius: 10px;">Generate Quiz</VBtn>
+                <VBtn color="primary" style="width: 100%; height: 50px; border-radius: 10px;" @click="generateQuiz"
+                    :loading="quizloading" :disabled="quizloading">
+                    Generate Quiz</VBtn>
             </VCol>
         </VRow>
     </div>
@@ -36,6 +38,8 @@ import { useRoute } from 'vue-router';
 
 const study_notes = ref([]);
 const route = useRoute();
+const quizloading = ref(false);
+
 
 const fetchNotes = () => {
     const { id } = route.params;
@@ -47,6 +51,24 @@ const fetchNotes = () => {
         })
         .catch((error) => {
             console.error('Error fetching notes:', error);
+        });
+};
+
+
+const generateQuiz = () => {
+    quizloading.value = true;
+    const { id } = route.params;
+
+    axios.post(`/studyplan/generate_quiz/${id}`)
+        .then((res) => {
+            study_notes.value.quiz_exists = true;
+            console.log('Quiz generation response:', res.data);
+        })
+        .catch((error) => {
+            console.error('Error generating quiz:', error);
+        })
+        .finally(() => {
+            quizloading.value = false;
         });
 };
 

@@ -26,11 +26,11 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
     to: '/quizzes',
   }" />
 
-  <VerticalNavLink :item="{
+  <!-- <VerticalNavLink :item="{
     title: 'Account Settings',
     icon: 'bx-user',
     to: '/account-settings',
-  }" />
+  }" /> -->
 
 
 

@@ -8,7 +8,14 @@
             <VCol cols="12" md="6" lg="4" v-for="quiz in quizzes" :key="quiz.id">
                 <VCard class="pa-4">
                     <h2>{{ quiz.title }}</h2>
-                    <VBtn color="primary" class="mt-3" @click="takeQuiz(quiz.id)">Take Quiz</VBtn>
+                    <div v-if="quiz.status == 'uncompleted'">
+                        <VBtn color="primary" class="mt-3" @click="takeQuiz(quiz.id)">
+                            Take Quiz</VBtn>
+                    </div>
+                    <div v-else class="mt-3">
+                        Score : {{ quiz.total_score.score }}
+                    </div>
+
                 </VCard>
             </VCol>
         </VRow>
@@ -30,16 +37,20 @@ import { onMounted } from 'vue';
 
 
 const quizzes = ref([]);
+const router = useRouter()
 
 const fetchQuiz = () => {
     axios.get('/studyplan/get_allquiz')
         .then((res) => {
             quizzes.value = res.data.data;
-            console.log('Quix data:', res.data);
         })
         .catch((error) => {
             console.error('Error fetching Quiz:', error);
         });
+};
+
+const takeQuiz = (quizId) => {
+    router.push(`/take-quiz/${quizId}`);
 };
 
 onMounted(() => {

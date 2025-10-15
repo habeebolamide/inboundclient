@@ -41,7 +41,11 @@ onMounted(() => {
         <VCard class="pa-4">
           <h2>View Notes</h2>
           <p>Access your organized study notes.</p>
-          <VBtn color="primary" class="mt-3">Access Notes</VBtn>
+          <RouterLink to="/notes">
+            <VBtn color="primary" class="mt-3">
+              Access Notes
+            </VBtn>
+          </RouterLink>
         </VCard>
       </VCol>
 
@@ -49,7 +53,10 @@ onMounted(() => {
         <VCard class="pa-4">
           <h2>Take Quiz</h2>
           <p>Test your knowledge with AI quizzes</p>
-          <VBtn color="primary" class="mt-3">Access Quiz</VBtn>
+          <RouterLink to="/quizzes">
+            <VBtn color="primary" class="mt-3">Access Quiz</VBtn>
+
+          </RouterLink>
         </VCard>
       </VCol>
     </VRow>

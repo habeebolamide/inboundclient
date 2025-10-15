@@ -8,8 +8,7 @@ const router = useRouter()
 
 const form = ref({
   name: '',
-  slug: '',
-  type: '',
+  uname: '',
   email: '',
   password: '',
   password_confirmation: '',
@@ -23,15 +22,9 @@ const register = async () => {
   loading.value = true
 
   try {
-    const res = await axios.post('/v1/organization/create', form.value)
-
-    // console.log('Registration response:', res.data)
-
-    toast.success('Organization registered successfully!')
-    localStorage.setItem('auth_token', res.data.data.token)
-    localStorage.setItem('user', JSON.stringify(res.data.data.user))
-    localStorage.setItem('organization', JSON.stringify(res.data.data.organization))
-    router.push('/') // or wherever you want to redirect
+    const res = await axios.post('/auth/register-user', form.value)
+    toast.success('Registration successful!')
+    router.push('/')
   } catch (error) {
     if (error.response?.data?.errors) {
       const errors = error.response.data.errors
@@ -73,25 +66,24 @@ const register = async () => {
             Adventure starts here 🚀
           </h4>
           <p class="mb-0">
-            Make your attendance management easy and fun!
+            Make your learning easy and fun!
           </p>
         </VCardText>
 
         <VCardText>
           <VForm @submit.prevent="register">
             <VRow>
-              <!-- Username -->
+              <!-- Name -->
               <VCol cols="12">
-                <VTextField v-model="form.name" autofocus label="Organization Name" placeholder="Inbound" />
+                <VTextField v-model="form.name" autofocus label="Fullname" placeholder="Inbound" />
               </VCol>
-              <!-- Slug -->
+              <!-- User Name -->
               <VCol cols="12">
-                <VTextField v-model="form.slug" autofocus label="Organization slug" placeholder="Ibn" />
+                <VTextField v-model="form.uname" autofocus label="Username" placeholder="Ibn" />
               </VCol>
-
-              <!-- type -->
+              <!-- Phone -->
               <VCol cols="12">
-                <VSelect v-model="form.type" :items="['company', 'school']" label="Type" placeholder="Select type" />
+                <VTextField v-model="form.phone" autofocus label="Phobe" type="tel" placeholder="09025915463" />
               </VCol>
               <!-- email -->
               <VCol cols="12">

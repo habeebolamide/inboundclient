@@ -23,7 +23,7 @@ const register = async () => {
   loading.value = true
 
   try {
-    const res = await axios.post('/v1/organization/create', form.value)
+    const res = await axios.post('/organization/create', form.value)
 
     // console.log('Registration response:', res.data)
 

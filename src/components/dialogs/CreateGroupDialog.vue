@@ -43,7 +43,7 @@ const createGroup = async () => {
     formData.append('file', form.value.file)
 
     try {
-        const response = await axios.post('/v1/organization/groups/create', formData, {
+        const response = await axios.post('/organization/groups/create', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },

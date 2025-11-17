@@ -16,7 +16,7 @@ const groups = ref()
 const supervisors = ref()
 
 const getSession = () => {
-    axios.get('v1/organization/sessions/get_sessions')
+    axios.get('/organization/sessions/get_sessions')
         .then(response => {
             sessions.value = response.data.data
             // console.log(sessions.value);
@@ -26,7 +26,7 @@ const getSession = () => {
         })
 }
 const getOrgGroups = () => {
-    axios.get('v1/organization/groups/get_org_groups')
+    axios.get('/organization/groups/get_org_groups')
         .then(response => {
 
             groups.value = response.data.data
@@ -38,7 +38,7 @@ const getOrgGroups = () => {
         })
 }
 const getOrganizationSupervisors = () => {
-    axios.get('v1/organization/supervisors/getOrganizationSupervisors')
+    axios.get('/organization/supervisors/getOrganizationSupervisors')
         .then(response => {
 
             supervisors.value = response.data.data
@@ -73,7 +73,7 @@ const deleteSession = () => {
     const session_id = form.value.id
 
     axios
-        .delete(`v1/organization/sessions/delete/${session_id}`)
+        .delete(`/organization/sessions/delete/${session_id}`)
         .then(res => {
             done.value = true
             getSession()
@@ -119,6 +119,8 @@ onMounted(() => {
                     <p>{{ s.description }}</p>
                     <p>Start Time: {{ s.start_time }} </p>
                     <p>End Time: {{ s.end_time }}</p>
+                    <p>Group: {{ s.group.name }}</p>
+                    <p>Supervisor: {{ s.supervisor.name }}</p>
                     <VChip :color="statusColor(s.status)">
                         {{ s.status }}
                     </VChip>

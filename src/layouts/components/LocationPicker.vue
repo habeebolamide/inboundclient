@@ -21,7 +21,7 @@ const LOCATIONIQ_API_KEY = 'pk.fe2c718e886c22261f70a1b3041dc292'
 
 const fetchLocationName = async (lat, lng) => {
     try {
-        const response = await fetch(`https://us1.locationiq.com/v1/reverse?key=${LOCATIONIQ_API_KEY}&lat=${lat}&lon=${lng}&format=json`)
+        const response = await fetch(`https://us1.locationiq.com/reverse?key=${LOCATIONIQ_API_KEY}&lat=${lat}&lon=${lng}&format=json`)
         const data = await response.json()
         emit('update:locationName', data.display_name || 'Unknown location')
     } catch (err) {

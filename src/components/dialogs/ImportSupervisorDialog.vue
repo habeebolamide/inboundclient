@@ -41,7 +41,7 @@ const uploadSupervisors = async () => {
   formData.append('supervisor_csv', form.value.supervisor_csv)
 
   try {
-    const response = await axios.post('/v1/organization/supervisors/upload', formData, {
+    const response = await axios.post('/organization/supervisors/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

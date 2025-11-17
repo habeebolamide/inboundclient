@@ -7,7 +7,7 @@ const supervisors = ref()
 
 
 const getSupervisors = () => {
-  axios.get('v1/organization/supervisors/getSupervisors')
+  axios.get('/organization/supervisors/getSupervisors')
     .then(response => {
       supervisors.value = response.data.data
     })
@@ -41,9 +41,6 @@ defineExpose({
         <th>
           Email
         </th>
-        <th>
-          Action
-        </th>
       </tr>
     </thead>
 
@@ -61,7 +58,7 @@ defineExpose({
         <td>
           {{ sp.email }}
         </td>
-        <td>
+        <!-- <td>
           <VBtn icon variant="text" color="medium-emphasis">
             <VIcon icon="tabler-dots-vertical" />
             <VMenu activator="parent">
@@ -71,19 +68,19 @@ defineExpose({
                     <VIcon icon="tabler-pencil" />
                   </template>
 
-                  <VListItemTitle>Assign Permission</VListItemTitle>
-                </VListItem>
+<VListItemTitle>Assign Permission</VListItemTitle>
+</VListItem>
 
-                <VListItem link @click="current = user; isRoleDialogVisible = true">
-                  <template #prepend>
+<VListItem link @click="current = user; isRoleDialogVisible = true">
+  <template #prepend>
                     <VIcon icon="tabler-pencil" />
                   </template>
-                  <VListItemTitle>Assign Role</VListItemTitle>
-                </VListItem>
-              </VList>
-            </VMenu>
-          </VBtn>
-        </td>
+  <VListItemTitle>Assign Role</VListItemTitle>
+</VListItem>
+</VList>
+</VMenu>
+</VBtn>
+</td> -->
       </tr>
     </tbody>
   </VTable>

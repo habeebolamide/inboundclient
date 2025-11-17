@@ -51,18 +51,18 @@ const createSession = async () => {
 
     loading.value = true
     try {
-        const response = await axios.post('/v1/organization/sessions/create', form.value)
+        const response = await axios.post('/organization/sessions/create', form.value)
         toast.success('Session created successfully!', { autoClose: 2000 })
         onReset()
     } catch (err) {
         console.error('Session creation failed', err)
-        toast.error('Failed to create session.')
+        toast.error(err.response.data.message || 'Failed to create session.')
     } finally {
         loading.value = false
     }
 }
 const getOrgGroups = () => {
-    axios.get('v1/organization/groups/get_org_groups')
+    axios.get('/organization/groups/get_org_groups')
         .then(response => {
 
             groups.value = response.data.data
@@ -74,7 +74,7 @@ const getOrgGroups = () => {
         })
 }
 const getOrganizationSupervisors = () => {
-    axios.get('v1/organization/supervisors/getOrganizationSupervisors')
+    axios.get('/organization/supervisors/getOrganizationSupervisors')
         .then(response => {
 
             supervisors.value = response.data.data
@@ -102,12 +102,12 @@ onMounted(() => {
                     </VCol>
 
                     <VCol cols="12" md="6">
-                        <VSelect v-model="form.group_id" :items="groups" item-title="name" item-value="id" label="Group"
+                        <VSelect v-model="form.group" :items="groups" item-title="name" item-value="_id" label="Group"
                             :disabled="loading" />
                     </VCol>
 
                     <VCol cols="12" md="6">
-                        <VSelect v-model="form.supervisor_id" :items="supervisors" item-title="name" item-value="id"
+                        <VSelect v-model="form.supervisor" :items="supervisors" item-title="name" item-value="_id"
                             label="Supervisor" :disabled="loading" />
                     </VCol>
 
@@ -125,7 +125,7 @@ onMounted(() => {
                             :disabled="loading" />
                     </VCol>
                     <VCol cols="12">
-                        <VTextField v-model="form.building_name" label="Building Name" readonly />
+                        <VTextField v-model="form.building_name" label="Building Name" />
                     </VCol>
                     <VCol cols="12">
                         <LocationPicker @update:latitude="form.latitude = $event"

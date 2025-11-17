@@ -7,7 +7,7 @@ const groups = ref()
 
 
 const getGroups = () => {
-    axios.get('v1/organization/groups/getAll')
+    axios.get('/organization/groups/getAll')
         .then(response => {
             groups.value = response.data.data
         })

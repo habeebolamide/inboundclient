@@ -36,7 +36,7 @@ const updateSession = async () => {
     // return console.log('Updating session with form:', form);
     loading.value = true
     try {
-        const response = await axios.post('/v1/organization/sessions/update', form)
+        const response = await axios.post('/organization/sessions/update', form)
         toast.success('Session updated successfully!', { autoClose: 2000 })
         onReset()
     } catch (err) {
@@ -47,7 +47,7 @@ const updateSession = async () => {
     }
 }
 const getOrgGroups = () => {
-    axios.get('v1/organization/groups/get_org_groups')
+    axios.get('/organization/groups/get_org_groups')
         .then(response => {
 
             groups.value = response.data.data
@@ -59,7 +59,7 @@ const getOrgGroups = () => {
         })
 }
 const getOrganizationSupervisors = () => {
-    axios.get('v1/organization/supervisors/getOrganizationSupervisors')
+    axios.get('/organization/supervisors/getOrganizationSupervisors')
         .then(response => {
 
             supervisors.value = response.data.data
